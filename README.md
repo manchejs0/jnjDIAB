@@ -2,7 +2,8 @@
 
 
 <h1> Here's the list of colors that can be used to style the table. </h1>
-
+ 
+ 
 AliceBlue 	
 AntiqueWhite 	
 Aqua 
