@@ -10,7 +10,7 @@ conn = sqlite3.connect('mydb.db')
 
 c = conn.cursor()
 
-recentList = list(c.execute("SELECT * from data LIMIT 20"))
+recentList = list(c.execute("SELECT * from data ORDER BY id DESC LIMIT 20"))
 
 
 listoutput = [i[1] for i in recentList]
