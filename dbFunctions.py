@@ -1,23 +1,50 @@
 import pymongo
+import sqlite3
+import datetime
+import serial
+import time
 
-def getPulseJson():
+
+conn = sqlite3.connect('mydb.db')
+
+c = conn.cursor()
+
+
+
+def getValue():
     
-    myclient = pymongo.MongoClient("mongodb://localhost:27017/")
+    global c
     
-    mydb = myclient["mydatabase"]
+    for row in c.execute('SELECT * from data ORDER BY id DESC LIMIT 1'):
+        
+        value = row
+        return value
+
+
+def storeValue():
     
-    mycol = mydb["data"]
+    global c
     
-    myquery = {"sent" : 0}
+    #Setup the serial USB connection
     
-    #Filter only unsent, only grab pulse and timestamp fields
+    ser = serial.Serial('/dev/ttyUSB0', 9600, 8, 'N', 1, timeout=5)
     
-    for x in mycol.find(myquery, {"sent": 0}):
-        value = x
-    return value
+    timestamp = str(datetime.datetime.now())
+    
+    #Make a list of the values we want to send. We want the seconds since epoch so we can order the values easily.
+    #Then, we want the pulse, a timestamp to be forwarded to the cloud, and the 'flag' field that determines if the data was sent or not.
     
     
-def updateSent():
     
-    newValue = {"$set": {"sent": 1}}
+    try:
+        
+        list = [time.time(), float(ser.readline()), timestamp, 0]
+    
+        c.execute('INSERT INTO data VALUES(?,?,?,?)', (list[0],list[1],list[2],list[3]))
+        
+        conn.commit()
+        
+    except ValueError:
+        
+        pass
     
