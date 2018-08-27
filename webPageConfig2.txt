@@ -7,9 +7,8 @@ img {
 	padding: 35px;
 }
 
-.version:after {
 
-	content: "2";
+
 
 table {
 
