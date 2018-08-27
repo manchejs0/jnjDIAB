@@ -18,7 +18,7 @@ table {
   border-collapse: collapse;
   border: 3px solid black;
   width:85%;
-  background-color: HotPink;
+  background-color: white;
   
 }
 
