@@ -8,11 +8,6 @@ img {
 }
 
 
-.version:after {
-
-	content: "1";
-	
-}
 
 table {
 
