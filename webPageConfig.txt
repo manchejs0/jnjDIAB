@@ -1,10 +1,12 @@
-img {
+.logo {
 
 	display: block;
 	margin-left: auto;
 	margin-right: auto;
-	width: 40%;
+	width: 700px;
+	height: 100px;
 	padding: 35px;
+	background: url('/static/img/diabloLogo1.PNG');
 }
 
 
@@ -17,7 +19,7 @@ table {
   border-collapse: collapse;
   border: 3px solid black;
   width:85%;
-  background-color: PapayaWhip;
+  background-color: white;
   
 }
 
@@ -35,6 +37,7 @@ tr:nth-child(even) {
   background-color: #dddddd;
   
 }
+
 
 
 
