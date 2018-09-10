@@ -17,7 +17,7 @@ table {
   margin-right: auto;
   font-family: galano, sans-serif;
   border-collapse: collapse;
-  border: 3px solid red;
+  border: 3px solid black;
   width:85%;
   background-color: DarkGoldenRod;
   
