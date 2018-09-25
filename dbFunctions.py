@@ -1,24 +1,42 @@
-import pymongo
 import sqlite3
 import datetime
 import serial
 import time
+import globalvar
 
+#Connect to the SQLite database and create a cursor.
 
-conn = sqlite3.connect('mydb.db')
+conn = sqlite3.connect('/home/pi/Desktop/project/mydb.db')
 
 c = conn.cursor()
 
 
+#Returns the last value from the database to the mainAzure script.
 
 def getValue():
     
     global c
     
-    for row in c.execute('SELECT * from data ORDER BY id DESC LIMIT 1'):
+    for row in c.execute('SELECT * from data WHERE sent = 0 ORDER BY id DESC LIMIT 1'):
         
         value = row
+        
+        
+        
         return value
+    
+ 
+#Changes the flag field in the database, which indicates whether the message was sent or not.
+    
+def changeFlag():
+    
+    global c
+    
+    for row in ('SELECT * from data ORDER BY id DESC LIMIT 1'):
+    
+        c.execute('UPDATE data SET sent = 1 WHERE sent = 0 ORDER BY id DESC LIMIT 1')
+        
+    conn.commit()
 
 
 def storeValue():
@@ -29,22 +47,52 @@ def storeValue():
     
     ser = serial.Serial('/dev/ttyUSB0', 9600, 8, 'N', 1, timeout=5)
     
-    timestamp = str(datetime.datetime.now())
-    
-    #Make a list of the values we want to send. We want the seconds since epoch so we can order the values easily.
-    #Then, we want the pulse, a timestamp to be forwarded to the cloud, and the 'flag' field that determines if the data was sent or not.
     
     
+    
+    
+    latitude = c.execute('SELECT latitude FROM location LIMIT 1').fetchone()
+    
+    bestLatitude = latitude[0]
+    
+    
+    
+    longitude = c.execute('SELECT longitude FROM location LIMIT 1').fetchone()
+    bestLongitude = longitude[0]
+    
+    file = open("/home/pi/Desktop/project/valueCounter.txt")
+    
+    valueCounter = file.read()
+    
+    
+    
+    
+    file.close()
     
     try:
-        
-        list = [time.time(), float(ser.readline()), timestamp, 0]
+        c.execute('INSERT INTO data VALUES(?,?,?,?,?,?)', (valueCounter, float(ser.readline()), str(datetime.datetime.now()), 0, bestLatitude, bestLongitude))
     
-        c.execute('INSERT INTO data VALUES(?,?,?,?)', (list[0],list[1],list[2],list[3]))
-        
         conn.commit()
         
-    except ValueError:
+        file = open("/home/pi/Desktop/project/valueCounter.txt", "w")
         
+        valueCounter = int(valueCounter) + 1
+        
+        file.write(valueConter)
+        
+        file.close()
+        
+    except:
         pass
+    
+    
+    
+        
+    
+    
+    
+
+
+
+
     
