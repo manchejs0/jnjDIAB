@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+	<title>DIAB Web Page></title>
+	<link href="{{ url_for('static', filename='css/main.css') }}"  rel="stylesheet">
+	
+
+</head>
+
+<body>
+
+	<h1 class="logo"> </h1>
+
+	
+
+	<br>
+
+	<div>
+	
+	<table>
+
+	<tr>
+	<th>Message ID</th>
+	<th>Pulse</th>
+	<th>Timestamp</th>
+	
+	</tr>
+
+	{% for data in data  %}
+
+	<tr>
+	<td> {{ data[0] }} <br> <br> </td>
+	<td> {{ data[1] }} <br> <br> </td>
+	<td> {{ data[2] }} <br> <br> </td>
+	</tr>
+
+	{% endfor %}
+
+	</table>
+
+	</div>
+
+
+	
+
+</body>
+
+
+
+</html

@@ -1,0 +1,42 @@
+.logo {
+
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	width: 695px;
+	height: 100px;
+	padding: 35px;
+	background: url('/static/img/diabloLogo2.PNG');
+}
+
+
+
+table {
+
+  margin-left: auto;
+  margin-right: auto;
+  font-family: galano, sans-serif;
+  border-collapse: collapse;
+  border: 3px solid red;
+  width:85%;
+  background-color: DarkGoldenRod;
+  
+}
+
+td, th {
+
+  border: 3px solid black;
+  text-align: left;
+  padding: 4px;
+  font-size: 11px;
+  
+}
+
+tr:nth-child(even) {
+
+  background-color: #dddddd;
+  
+}
+
+
+
